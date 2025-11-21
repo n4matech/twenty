@@ -181,16 +181,14 @@ check_secret() {
             --region "$AWS_REGION" &> /dev/null; then
             echo -e "${GREEN}  ✓ Secret is readable${NC}"
             
-            # Validate secret structure
+            # Validate secret structure (consolidated jq check)
             SECRET_JSON=$(aws secretsmanager get-secret-value \
                 --secret-id "$SECRET_NAME" \
                 --region "$AWS_REGION" \
                 --query 'SecretString' \
                 --output text)
             
-            if echo "$SECRET_JSON" | jq -e '.username' &> /dev/null && \
-               echo "$SECRET_JSON" | jq -e '.password' &> /dev/null && \
-               echo "$SECRET_JSON" | jq -e '.host' &> /dev/null; then
+            if echo "$SECRET_JSON" | jq -e '.username and .password and .host' &> /dev/null; then
                 echo -e "${GREEN}  ✓ Secret has required fields${NC}"
             else
                 echo -e "${RED}  ✗ Secret is missing required fields${NC}"
@@ -225,8 +223,14 @@ if command -v eb &> /dev/null; then
         # Check staging environment
         if eb list | grep -q "${PROJECT_NAME}-staging"; then
             echo -e "${GREEN}✓ Staging environment exists${NC}"
-            STATUS=$(eb status ${PROJECT_NAME}-staging 2>/dev/null | grep "Status:" | awk '{print $2}')
-            echo -e "  Status: ${STATUS}"
+            # Use AWS CLI for more reliable status checking
+            if command -v aws &> /dev/null; then
+                EB_ENV_STATUS=$(aws elasticbeanstalk describe-environments \
+                    --environment-names "${PROJECT_NAME}-staging" \
+                    --query 'Environments[0].Status' \
+                    --output text 2>/dev/null || echo "Unknown")
+                echo -e "  Status: ${EB_ENV_STATUS}"
+            fi
         else
             echo -e "${YELLOW}⚠ Staging environment not found${NC}"
             ((WARNINGS++))
@@ -235,8 +239,14 @@ if command -v eb &> /dev/null; then
         # Check production environment
         if eb list | grep -q "${PROJECT_NAME}-production"; then
             echo -e "${GREEN}✓ Production environment exists${NC}"
-            STATUS=$(eb status ${PROJECT_NAME}-production 2>/dev/null | grep "Status:" | awk '{print $2}')
-            echo -e "  Status: ${STATUS}"
+            # Use AWS CLI for more reliable status checking
+            if command -v aws &> /dev/null; then
+                EB_ENV_STATUS=$(aws elasticbeanstalk describe-environments \
+                    --environment-names "${PROJECT_NAME}-production" \
+                    --query 'Environments[0].Status' \
+                    --output text 2>/dev/null || echo "Unknown")
+                echo -e "  Status: ${EB_ENV_STATUS}"
+            fi
         else
             echo -e "${YELLOW}⚠ Production environment not found${NC}"
             ((WARNINGS++))

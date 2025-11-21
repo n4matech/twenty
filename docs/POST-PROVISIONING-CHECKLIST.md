@@ -197,7 +197,10 @@ Use this checklist to track progress after running the AWS infrastructure provis
 
 ### Database Initialization (Staging)
 
-- [ ] SSH into instance: `eb ssh n4-crm-staging`
+- [ ] SSH key pair configured during EB environment creation
+- [ ] SSH into instance: `eb ssh n4-crm-staging` (requires key pair)
+  - Alternative: Use AWS Systems Manager Session Manager for keyless access
+  - Or run migrations from local machine with port forwarding
 - [ ] Ran database migrations
 - [ ] Verified database connection
 - [ ] Created test data (if needed)
@@ -214,7 +217,10 @@ Use this checklist to track progress after running the AWS infrastructure provis
 
 ### Database Initialization (Production)
 
-- [ ] SSH into instance: `eb ssh n4-crm-production`
+- [ ] SSH key pair configured during EB environment creation
+- [ ] SSH into instance: `eb ssh n4-crm-production` (requires key pair)
+  - Alternative: Use AWS Systems Manager Session Manager for keyless access
+  - Or run migrations from local machine with secure tunnel
 - [ ] Ran database migrations
 - [ ] Verified database connection
 - [ ] Imported production data (if applicable)

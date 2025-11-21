@@ -43,7 +43,8 @@ echo ""
 
 # Function to generate secure password
 generate_password() {
-    openssl rand -base64 32 | tr -d "=+/" | cut -c1-32
+    # Generate secure alphanumeric password to avoid shell escaping issues
+    openssl rand -base64 48 | tr -d '=+/\n' | cut -c1-32
 }
 
 # Function to create Aurora Serverless v2 cluster
@@ -246,10 +247,10 @@ echo "PROVISIONING COMPLETE"
 echo "================================================"
 echo ""
 echo -e "${GREEN}Next Steps:${NC}"
-echo "1. Update .eb-env-staging with the staging database endpoint:"
+echo "1. Update .eb-env-staging.local (copy from .eb-env-staging template) with the staging database endpoint:"
 echo "   PG_DATABASE_URL=postgres://${STAGING_DB_USERNAME}:\${PASSWORD}@${STAGING_DB_ENDPOINT}:5432/${STAGING_DB_NAME}"
 echo ""
-echo "2. Update .eb-env-production with the production database endpoint:"
+echo "2. Update .eb-env-production.local (copy from .eb-env-production template) with the production database endpoint:"
 echo "   PG_DATABASE_URL=postgres://${PRODUCTION_DB_USERNAME}:\${PASSWORD}@${PRODUCTION_DB_ENDPOINT}:5432/${PRODUCTION_DB_NAME}"
 echo ""
 echo "3. Retrieve database passwords from Secrets Manager:"
@@ -261,7 +262,7 @@ echo "   eb create n4-crm-staging --instance-types t3.small --single"
 echo "   eb create n4-crm-production --instance-types t3.medium"
 echo ""
 echo "5. Set environment variables:"
-echo "   eb setenv --envvars \$(cat .eb-env-staging | tr '\\n' ',' | sed 's/,\$//')"
+echo "   eb setenv --envvars \$(cat .eb-env-staging.local | tr '\\n' ',' | sed 's/,\$//')"
 echo ""
 echo "6. Document provisioned resources in docs/INFRASTRUCTURE-PROVISIONED.md"
 echo ""
