@@ -216,6 +216,8 @@ S3 bucket names are globally unique. Modify bucket names in the script if needed
 
 - [AWS Complete Architecture](../docs/AWS-COMPLETE-ARCHITECTURE.md)
 - [Infrastructure Provisioned](../docs/INFRASTRUCTURE-PROVISIONED.md)
+- [Post-Provisioning Checklist](../docs/POST-PROVISIONING-CHECKLIST.md)
+- [Scripts README](./README.md)
 - [EB Configuration](../.ebextensions/)
 
 ## Support

@@ -335,6 +335,7 @@ After provisioning is complete:
 ## Related Documentation
 
 - [AWS Complete Architecture](./AWS-COMPLETE-ARCHITECTURE.md)
+- [Post-Provisioning Checklist](./POST-PROVISIONING-CHECKLIST.md)
 - [Provisioning Script](../scripts/provision-aws-infrastructure.sh)
 - [EB Configuration Files](../.ebextensions/)
 

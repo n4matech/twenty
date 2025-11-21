@@ -207,6 +207,7 @@ aws resourcegroupstaggingapi get-resources \
 
 - [AWS Complete Architecture](./docs/AWS-COMPLETE-ARCHITECTURE.md)
 - [Infrastructure Provisioned](./docs/INFRASTRUCTURE-PROVISIONED.md)
+- [Post-Provisioning Checklist](./docs/POST-PROVISIONING-CHECKLIST.md)
 - [Scripts README](./scripts/README.md)
 - [AWS Elastic Beanstalk Docs](https://docs.aws.amazon.com/elasticbeanstalk/)
 - [AWS Aurora Serverless Docs](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.html)

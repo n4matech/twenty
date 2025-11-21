@@ -316,6 +316,7 @@ This document describes the complete AWS architecture for the N4 Montessori CRM 
 ## Related Documentation
 
 - [Infrastructure Provisioned](./INFRASTRUCTURE-PROVISIONED.md) - Current provisioned resources
+- [Post-Provisioning Checklist](./POST-PROVISIONING-CHECKLIST.md) - Detailed deployment checklist
 - [Provisioning Script](../scripts/provision-aws-infrastructure.sh) - Automated setup
 - [Environment Configuration](../.eb-env-staging) - Staging environment variables
 - [Environment Configuration](../.eb-env-production) - Production environment variables
