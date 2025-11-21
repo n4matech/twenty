@@ -81,7 +81,10 @@ eb health n4-crm-production
 ### Phase 5: Verify and Document
 
 ```bash
-# 1. Test database connectivity
+# 1. Run validation script
+./scripts/validate-aws-infrastructure.sh
+
+# 2. Test database connectivity (if validation passes)
 eb ssh n4-crm-staging
 # Inside the instance:
 psql $PG_DATABASE_URL
@@ -92,6 +95,11 @@ psql $PG_DATABASE_URL
 ```
 
 ## Common Commands
+
+### Validation
+```bash
+./scripts/validate-aws-infrastructure.sh  # Validate all infrastructure
+```
 
 ### Check Status
 ```bash

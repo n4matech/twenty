@@ -4,7 +4,7 @@ This directory contains scripts for provisioning and managing AWS infrastructure
 
 ## Available Scripts
 
-### provision-aws-infrastructure.sh
+### 1. provision-aws-infrastructure.sh
 
 **Purpose**: Provisions all necessary AWS infrastructure for the N4 CRM platform.
 
@@ -107,6 +107,62 @@ The script will output:
    eb list
    eb status n4-crm-staging
    ```
+
+### 2. validate-aws-infrastructure.sh
+
+**Purpose**: Validates that all provisioned AWS infrastructure is accessible and properly configured.
+
+**What it checks**:
+- Aurora Serverless v2 clusters (status, endpoint, instance)
+- S3 buckets (existence, versioning, encryption, public access)
+- AWS Secrets Manager entries (existence, readability, structure)
+- Elastic Beanstalk environments (if EB CLI is installed)
+- IAM roles (basic check for EB service role)
+
+**Usage**:
+
+```bash
+# Run validation
+./scripts/validate-aws-infrastructure.sh
+
+# Or specify a different region
+AWS_REGION=us-west-2 ./scripts/validate-aws-infrastructure.sh
+```
+
+**Exit Codes**:
+- `0`: All checks passed or only warnings
+- `1`: One or more errors found
+
+**Output**:
+- Green ✓: Check passed
+- Yellow ⚠: Warning (non-critical issue)
+- Red ✗: Error (requires attention)
+
+**When to run**:
+- After running `provision-aws-infrastructure.sh`
+- Before deploying to Elastic Beanstalk
+- During troubleshooting
+- As part of CI/CD health checks
+
+**Example Output**:
+```
+================================================
+AWS Infrastructure Validation
+N4 Montessori CRM - Twenty Platform
+================================================
+
+✓ AWS CLI is installed
+✓ AWS credentials configured (Account: 123456789012)
+
+================================================
+Validating Aurora Clusters
+================================================
+Checking staging Aurora cluster...
+  ✓ Cluster exists and is available
+    Endpoint: n4-crm-staging-db.cluster-xxxxx.us-east-1.rds.amazonaws.com
+  ✓ Instance is available
+...
+```
 
 ## Cost Estimates
 
