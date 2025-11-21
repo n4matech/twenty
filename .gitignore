@@ -53,3 +53,9 @@ mcp.json
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# EB environment files with actual credentials should be gitignored
+# The template files (.eb-env-staging, .eb-env-production) are tracked
+# But never commit files with REPLACE_WITH_* values filled in
+.eb-env-staging.local
+.eb-env-production.local
