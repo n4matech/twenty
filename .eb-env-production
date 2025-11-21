@@ -1,0 +1,96 @@
+# Elastic Beanstalk Environment Variables - PRODUCTION
+# Update these values after running ./scripts/provision-aws-infrastructure.sh
+
+# Node Environment
+NODE_ENV=production
+NPM_USE_PRODUCTION=false
+
+# Database Configuration
+# Update with Aurora endpoint from provisioning script output
+PG_DATABASE_URL=postgres://n4admin:REPLACE_WITH_PASSWORD@REPLACE_WITH_AURORA_ENDPOINT:5432/n4_crm_production
+PG_SSL_ALLOW_SELF_SIGNED=true
+
+# Redis Configuration (if using ElastiCache)
+REDIS_URL=redis://localhost:6379
+
+# Application Secret (generate a secure random string)
+APP_SECRET=REPLACE_WITH_RANDOM_SECRET_STRING
+
+# Frontend URL
+FRONTEND_URL=https://app.n4montessori.com
+
+# Server URL
+SERVER_URL=https://api.n4montessori.com
+
+# Storage Configuration (S3)
+STORAGE_TYPE=s3
+STORAGE_S3_NAME=n4-crm-production-storage
+STORAGE_S3_REGION=us-east-1
+# AWS credentials will be provided by IAM role attached to EB environment
+# STORAGE_S3_ACCESS_KEY_ID=
+# STORAGE_S3_SECRET_ACCESS_KEY=
+
+# Email Configuration
+EMAIL_FROM_ADDRESS=noreply@n4montessori.com
+EMAIL_SYSTEM_ADDRESS=system@n4montessori.com
+EMAIL_FROM_NAME=N4 Montessori CRM
+EMAIL_DRIVER=smtp
+# EMAIL_SMTP_HOST=
+# EMAIL_SMTP_PORT=587
+# EMAIL_SMTP_USER=
+# EMAIL_SMTP_PASSWORD=
+
+# Authentication
+AUTH_PASSWORD_ENABLED=true
+SIGN_IN_PREFILLED=false
+
+# Token Expiration
+ACCESS_TOKEN_EXPIRES_IN=30m
+LOGIN_TOKEN_EXPIRES_IN=15m
+REFRESH_TOKEN_EXPIRES_IN=90d
+FILE_TOKEN_EXPIRES_IN=1d
+
+# Security
+IS_EMAIL_VERIFICATION_REQUIRED=true
+EMAIL_VERIFICATION_TOKEN_EXPIRES_IN=1h
+PASSWORD_RESET_TOKEN_EXPIRES_IN=5m
+
+# Features
+IS_MULTIWORKSPACE_ENABLED=true
+IS_BILLING_ENABLED=false
+MESSAGING_PROVIDER_GMAIL_ENABLED=false
+IS_IMAP_SMTP_CALDAV_ENABLED=false
+CALENDAR_PROVIDER_GOOGLE_ENABLED=false
+
+# Logging
+LOGGER_DRIVER=CONSOLE
+LOG_LEVELS=error,warn
+
+# Rate Limiting
+API_RATE_LIMITING_TTL=60
+API_RATE_LIMITING_LIMIT=100
+
+# Mutation Limits
+MUTATION_MAXIMUM_AFFECTED_RECORDS=100
+
+# Serverless Configuration
+SERVERLESS_TYPE=local
+SERVERLESS_LOGS_ENABLED=true
+
+# Analytics (optional)
+ANALYTICS_ENABLED=false
+
+# Sentry (optional - for error tracking)
+# SENTRY_ENVIRONMENT=production
+# SENTRY_DSN=
+# SENTRY_FRONT_DSN=
+
+# Support (optional)
+# SUPPORT_DRIVER=front
+# SUPPORT_FRONT_HMAC_KEY=
+# SUPPORT_FRONT_CHAT_ID=
+
+# Workspace Management
+WORKSPACE_INACTIVE_DAYS_BEFORE_NOTIFICATION=7
+WORKSPACE_INACTIVE_DAYS_BEFORE_SOFT_DELETION=14
+WORKSPACE_INACTIVE_DAYS_BEFORE_DELETION=21
